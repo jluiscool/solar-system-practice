@@ -3,8 +3,9 @@ import AnimatedStars from "./AnimatedStars";
 import Earth from "../../scenes/EarthScene/Earth";
 import { useRef } from "react";
 import * as THREE from 'three';
+import Sun from "../../scenes/SunScene/Sun";
 
-function CanvasContainer({triangles, displacement}) {
+function CanvasContainer({ triangles, displacement }) {
 
     const directionalLightRef = useRef();
     const directionalLightRef2 = useRef();
@@ -14,20 +15,21 @@ function CanvasContainer({triangles, displacement}) {
 
     return (
         <>
-            <color attach="background" args={['black']}/>
-            
+            <color attach="background" args={['black']} />
+
             <AnimatedStars />
-            <directionalLight 
-            castShadow
-            ref={directionalLightRef} 
-            position={[0,0,10]} 
-            // color={0xff0000}
-            intensity={1}/>
-            <directionalLight 
-            castShadow
-            ref={directionalLightRef2} 
-            position={[0,0,-10]}/>
-            <Earth displacementScale={displacement} triangles={triangles}/>
+            {/* <directionalLight
+                castShadow
+                ref={directionalLightRef}
+                position={[0, 0, 10]}
+                // color={0xff0000}
+                intensity={1} />
+            <directionalLight
+                castShadow
+                ref={directionalLightRef2}
+                position={[0, 0, -10]} /> */}
+            <Sun triangles={triangles} />
+            <Earth displacementScale={displacement} triangles={triangles} />
         </>
     )
 }

@@ -23,7 +23,7 @@ function Moon({ displacementScale, triangles }) {
 
     // args values = radius, x, y
     return (
-        <mesh castShadow ref={moonRef}
+        <mesh receiveShadow castShadow ref={moonRef}
             position={[xAxis, 0, 0]}>
             <sphereGeometry
                 args={[0.5, triangles, triangles]}
