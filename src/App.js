@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import { Suspense } from 'react';
 import './App.css';
+import CanvasContainer from './components/CanvasContainer/CanvasContainer';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Canvas camera={{
+        fov: 75,
+        near: 0.1,
+        far: 1000,
+        position: [0, 3, 3]
+      }}>
+        <Suspense fallback={null}>
+          <OrbitControls />
+          <CanvasContainer />
+        </Suspense>
+      </Canvas>
     </div>
   );
 }
