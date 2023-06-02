@@ -1,10 +1,10 @@
 import { useHelper } from "@react-three/drei";
-import AnimatedStars from "./AnimatedStars/AnimatedStars";
-import Earth from "./Earth/Earth";
+import AnimatedStars from "./AnimatedStars";
+import Earth from "../../scenes/EarthScene/Earth";
 import { useRef } from "react";
 import * as THREE from 'three';
 
-function CanvasContainer() {
+function CanvasContainer({triangles, displacement}) {
 
     const directionalLightRef = useRef();
     const directionalLightRef2 = useRef();
@@ -18,14 +18,16 @@ function CanvasContainer() {
             
             <AnimatedStars />
             <directionalLight 
+            castShadow
             ref={directionalLightRef} 
             position={[0,0,10]} 
             // color={0xff0000}
             intensity={1}/>
             <directionalLight 
+            castShadow
             ref={directionalLightRef2} 
             position={[0,0,-10]}/>
-            <Earth displacementScale={0.15}/>
+            <Earth displacementScale={displacement} triangles={triangles}/>
         </>
     )
 }
