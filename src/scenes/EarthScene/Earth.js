@@ -1,13 +1,18 @@
 import { useTexture } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { useRef } from "react";
+import * as THREE from 'three';
+
+import Moon from "./Moon";
+import ISS from "./ISS";
+
 import EarthDay from '../../assets/8k_earth_daymap.jpg';
 import earthNormalMap from '../../assets/8k_earth_normal_map.jpg';
 import earthSpecularMap from '../../assets/8k_earth_specular_map.jpg';
 import earthDisplacementMap from '../../assets/earth_displacement.jpg';
-import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
-import Moon from "./Moon";
-import ISS from "./ISS";
-import * as THREE from 'three';
+import earthEmissiveMap from '../../assets/8k_earth_nightmap.jpg';
+
+
 
 function Earth({ displacementScale, triangles }) {
 
@@ -17,7 +22,7 @@ function Earth({ displacementScale, triangles }) {
     const earthPositionRef = useRef(new THREE.Vector3(distance,0,0)) 
 
     const [earthTexture, earthNormalMapTexture, earthSpecularMapTexture,
-        earthDisplacementMapTexture] = useTexture([EarthDay, earthNormalMap, earthSpecularMap, earthDisplacementMap])
+        earthDisplacementMapTexture, earthEmissiveMapTexture] = useTexture([EarthDay, earthNormalMap, earthSpecularMap, earthDisplacementMap, earthEmissiveMap])
 
         
 
@@ -42,6 +47,9 @@ function Earth({ displacementScale, triangles }) {
                     shininess={1000}
                     displacementMap={earthDisplacementMapTexture}
                     displacementScale={displacementScale}
+                    emissiveMap={earthEmissiveMapTexture}
+                    emissive={0xffffff}
+                    emissiveIntensity={1.5}
                 />
             </mesh>
             <ISS />

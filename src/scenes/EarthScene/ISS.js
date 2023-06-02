@@ -22,9 +22,9 @@ function ISS() {
 
         //Orbit Rotation
         ISSref.current.position.x = Math.sin(
-            clock.getElapsedTime() * 0.8) * xAxis
+            clock.getElapsedTime() * 1) * xAxis
         ISSref.current.position.z = Math.cos(
-            clock.getElapsedTime() * 0.8) * xAxis
+            clock.getElapsedTime() * 1) * xAxis
     })
 
     return (

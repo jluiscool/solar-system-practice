@@ -30,6 +30,9 @@ function Moon({ displacementScale, triangles }) {
             />
             <meshPhongMaterial
                 map={moonTexture}
+                emissiveMap={moonTexture}
+                emissive={0xffffff}
+                emissiveIntensity={0.025}
             />
         </mesh>
     )
