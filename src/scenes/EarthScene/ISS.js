@@ -1,9 +1,8 @@
 
 import { useGLTF } from "@react-three/drei";
-import { useMemo } from "react";
 import ISSModel from '../../assets/ISS_stationary.glb';
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import React, { useRef,useMemo, useCallback } from "react";
 
 function ISS() {
 
@@ -13,18 +12,20 @@ function ISS() {
 
     const memoizedISS = useMemo(() => {
         return gltfISS
-    })
+    }, [gltfISS])
 
     const xAxis = 2;
+    
+    const updateMoonPosition = useCallback((clock) => {
+            //Orbit Rotation
+            ISSref.current.position.x = Math.sin(
+                clock.getElapsedTime() * 1) * xAxis
+            ISSref.current.position.z = Math.cos(
+                clock.getElapsedTime() * 1) * xAxis
+    }, [])
 
-    useFrame(({ clock }) => {
-
-
-        //Orbit Rotation
-        ISSref.current.position.x = Math.sin(
-            clock.getElapsedTime() * 1) * xAxis
-        ISSref.current.position.z = Math.cos(
-            clock.getElapsedTime() * 1) * xAxis
+    useFrame(({clock}) => {
+        updateMoonPosition(clock)
     })
 
     return (
@@ -39,4 +40,4 @@ function ISS() {
     )
 }
 
-export default ISS;
+export default React.memo(ISS);

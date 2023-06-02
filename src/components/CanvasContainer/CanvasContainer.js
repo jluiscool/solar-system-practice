@@ -15,8 +15,6 @@ function CanvasContainer({ triangles, displacement }) {
 
     return (
         <>
-            <color attach="background" args={['black']} />
-
             <AnimatedStars />
             {/* <directionalLight
                 castShadow

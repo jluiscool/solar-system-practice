@@ -1,6 +1,6 @@
 import { useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import React, { useRef, useCallback } from "react";
 import * as THREE from 'three';
 
 import Moon from "./Moon";
@@ -19,20 +19,24 @@ function Earth({ displacementScale, triangles }) {
     const earthRef = useRef();
     const distance = 10;
     //Create ref to earth position
-    const earthPositionRef = useRef(new THREE.Vector3(distance,0,0)) 
+    const earthPositionRef = useRef(new THREE.Vector3(distance, 0, 0))
+    //Instead of using clock inside useFrame you can make a ref to it
+    //const clockRef = useRef(new THREE.clock())
 
     const [earthTexture, earthNormalMapTexture, earthSpecularMapTexture,
         earthDisplacementMapTexture, earthEmissiveMapTexture] = useTexture([EarthDay, earthNormalMap, earthSpecularMap, earthDisplacementMap, earthEmissiveMap])
 
-        
-
-    useFrame(({clock}) => {
+    const updateEarthPosition = useCallback((clock) => {
         const angle = clock.getElapsedTime() * 0.5;
         const x = Math.sin(angle) * distance;
         const z = Math.cos(angle) * distance
-        earthRef.current.position.set(x,0,z)
+        earthRef.current.position.set(x, 0, z)
         earthRef.current.rotation.y += 0.001;
         earthPositionRef.current = earthRef.current.position;
+    }, [])
+
+    useFrame(({ clock }) => {
+        updateEarthPosition(clock)
     })
 
     // args values = radius, x, y
@@ -58,4 +62,4 @@ function Earth({ displacementScale, triangles }) {
     )
 }
 
-export default Earth;
+export default React.memo(Earth);

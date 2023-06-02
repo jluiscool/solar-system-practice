@@ -1,6 +1,6 @@
 import sunModel from '../../assets/8k_sun.jpg'
 import { useTexture } from '@react-three/drei';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 
 function Sun({triangles}) {
@@ -30,4 +30,4 @@ function Sun({triangles}) {
     )
 }
 
-export default Sun;
+export default React.memo(Sun);

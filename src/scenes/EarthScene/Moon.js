@@ -1,24 +1,30 @@
 import { useTexture } from "@react-three/drei";
 import moonDay from '../../assets/8k_moon.jpg';
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import React, { useCallback, useRef } from "react";
+import * as THREE from 'three';
 
 function Moon({ displacementScale, triangles }) {
 
     const moonRef = useRef();
+    const clockRef = useRef(new THREE.Clock())
 
     const [moonTexture] = useTexture([moonDay])
     const xAxis = 4;
 
-    useFrame(({ clock }) => {
+    const updateMoonPosition = useCallback(() => {
         //Axis rotation
         moonRef.current.rotation.y += 0.001;
-
+    
         //Orbit Rotation
         moonRef.current.position.x = Math.sin(
-            clock.getElapsedTime() * 0.8) * xAxis
+            clockRef.current.getElapsedTime() * 0.8) * xAxis
         moonRef.current.position.z = Math.cos(
-            clock.getElapsedTime() * 0.8) * xAxis
+            clockRef.current.getElapsedTime() * 0.8) * xAxis
+    }, [])
+
+    useFrame(() => {
+        updateMoonPosition()
     })
 
     // args values = radius, x, y
@@ -38,4 +44,4 @@ function Moon({ displacementScale, triangles }) {
     )
 }
 
-export default Moon;
+export default React.memo(Moon);
