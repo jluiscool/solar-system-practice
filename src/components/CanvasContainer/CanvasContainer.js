@@ -4,6 +4,8 @@ import Earth from "../../scenes/EarthScene/Earth";
 import { useRef } from "react";
 import * as THREE from 'three';
 import Sun from "../../scenes/SunScene/Sun";
+import Mercury from "../../scenes/MercuryScene/Mercury";
+import Venus from '../../scenes/VenusScene/Venus';
 
 function CanvasContainer({ triangles, displacement }) {
 
@@ -27,6 +29,8 @@ function CanvasContainer({ triangles, displacement }) {
                 ref={directionalLightRef2}
                 position={[0, 0, -10]} /> */}
             <Sun triangles={triangles} />
+            <Mercury />
+            <Venus />
             <Earth displacementScale={displacement} triangles={triangles} />
         </>
     )

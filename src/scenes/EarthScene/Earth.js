@@ -17,7 +17,7 @@ import earthEmissiveMap from '../../assets/8k_earth_nightmap.jpg';
 function Earth({ displacementScale, triangles }) {
 
     const earthRef = useRef();
-    const distance = 10;
+    const distance = 20;
     //Create ref to earth position
     const earthPositionRef = useRef(new THREE.Vector3(distance, 0, 0))
     //Instead of using clock inside useFrame you can make a ref to it
