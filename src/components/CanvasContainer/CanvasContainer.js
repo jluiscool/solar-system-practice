@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import Sun from "../../scenes/SunScene/Sun";
 import Mercury from "../../scenes/MercuryScene/Mercury";
 import Venus from '../../scenes/VenusScene/Venus';
+import Mars from "../../scenes/MarsScene/Mars";
 
 function CanvasContainer({ triangles, displacement }) {
 
@@ -29,9 +30,10 @@ function CanvasContainer({ triangles, displacement }) {
                 ref={directionalLightRef2}
                 position={[0, 0, -10]} /> */}
             <Sun triangles={triangles} />
-            <Mercury />
-            <Venus />
+            <Mercury triangles={triangles}/>
+            <Venus triangles={triangles}/>
             <Earth displacementScale={displacement} triangles={triangles} />
+            <Mars triangles={triangles}/>
         </>
     )
 }
