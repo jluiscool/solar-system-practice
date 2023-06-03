@@ -12,6 +12,7 @@ import Saturn from "../../scenes/SaturnScene/Saturn";
 import Uranus from "../../scenes/UranusScene/Uranus";
 import Neptune from "../../scenes/NeptuneScene/Neptune";
 import Pluto from "../../scenes/PlutoScene/Pluto";
+import CameraPositionLogging from "../../helpers/CameraPositionLogging";
 
 function CanvasContainer({ triangles, displacement }) {
 
@@ -23,6 +24,7 @@ function CanvasContainer({ triangles, displacement }) {
 
     return (
         <>
+            <CameraPositionLogging event="mousedown" />
             <AnimatedStars />
             {/* <directionalLight
                 castShadow
@@ -35,10 +37,10 @@ function CanvasContainer({ triangles, displacement }) {
                 ref={directionalLightRef2}
                 position={[0, 0, -10]} /> */}
             <Sun triangles={triangles} />
-            <Mercury triangles={triangles}/>
-            <Venus triangles={triangles}/>
+            <Mercury triangles={triangles} />
+            <Venus triangles={triangles} />
             <Earth displacementScale={displacement} triangles={triangles} />
-            <Mars triangles={triangles}/>
+            <Mars triangles={triangles} />
             <Jupiter />
             <Saturn />
             <Uranus />
