@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       <Canvas
         camera={{
-          fov: 75,
+          fov: 55,
           near: 0.1,
           far: 1000,
           position: [16, 8.5, 19.5]

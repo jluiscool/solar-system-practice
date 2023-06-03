@@ -53,8 +53,7 @@ function Earth({ displacementScale, triangles }) {
         document.body.style.cursor = hovered ? 'pointer' : 'auto'
     }, [hovered])
 
-    useFrame(() => {
-        updateEarthPosition()
+    const tweenLogic = useCallback(() => {
         TWEEN.update()
 
         const earthPositionRef = earthRef.current.position
@@ -105,6 +104,11 @@ function Earth({ displacementScale, triangles }) {
         camera.lookAt(cameraTarget)
         camera.position.copy(cameraPosition)
         camera.updateProjectionMatrix()
+    })
+
+    useFrame(() => {
+        updateEarthPosition()
+        tweenLogic()
     })
 
     // args values = radius, x, y
