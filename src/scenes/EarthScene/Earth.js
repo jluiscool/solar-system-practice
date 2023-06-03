@@ -1,6 +1,6 @@
 import { useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useEffect, useState } from "react";
 import * as THREE from 'three';
 
 import Moon from "./Moon";
@@ -15,6 +15,8 @@ import earthEmissiveMap from '../../assets/8k_earth_nightmap.jpg';
 
 
 function Earth({ displacementScale, triangles }) {
+
+    const [hovered, setHovered] = useState(false)
 
     const earthRef = useRef();
     const distance = 20;
@@ -39,10 +41,16 @@ function Earth({ displacementScale, triangles }) {
         updateEarthPosition(clock)
     })
 
+    useEffect(() => {
+        document.body.style.cursor = hovered ? 'pointer' : 'auto'
+    }, [hovered])
+
     // args values = radius, x, y
     return (
         <group ref={earthRef}>
-            <mesh castShadow receiveShadow >
+            <mesh castShadow receiveShadow 
+            onPointerOut={() => { setHovered(false)}}
+            onPointerOver={() => {setHovered(true)}}>
                 <sphereGeometry args={[1, triangles, triangles]} />
                 <meshPhongMaterial
                     map={earthTexture}
@@ -53,7 +61,7 @@ function Earth({ displacementScale, triangles }) {
                     displacementScale={displacementScale}
                     emissiveMap={earthEmissiveMapTexture}
                     emissive={0xffffff}
-                    emissiveIntensity={1.5}
+                    emissiveIntensity={hovered ? 20 : 1.5}
                 />
             </mesh>
             <ISS />

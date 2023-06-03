@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 function App() {
 
-  const [triangles, setTriangles] = useState(640)
+  const [triangles, setTriangles] = useState(64)
   const [displacement, setDisplacement] = useState(0.1)
 
   return (
