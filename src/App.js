@@ -25,7 +25,7 @@ function App() {
         <Suspense fallback={null}>
           <Perf />
           <color attach="background" args={['black']} />
-          <OrbitControls />
+          {/* <OrbitControls /> */}
           <CanvasContainer triangles={triangles} displacement={displacement} />
         </Suspense>
       </Canvas>

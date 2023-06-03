@@ -36,6 +36,7 @@ function CanvasContainer({ triangles, displacement }) {
                 castShadow
                 ref={directionalLightRef2}
                 position={[0, 0, -10]} /> */}
+            <ambientLight intensity={0.1}/>
             <Sun triangles={triangles} />
             <Mercury triangles={triangles} />
             <Venus triangles={triangles} />

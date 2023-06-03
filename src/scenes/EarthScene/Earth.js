@@ -1,5 +1,5 @@
 import { useTexture } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import React, { useRef, useCallback, useEffect, useState } from "react";
 import * as THREE from 'three';
 
@@ -17,6 +17,8 @@ import earthEmissiveMap from '../../assets/8k_earth_nightmap.jpg';
 function Earth({ displacementScale, triangles }) {
 
     const [hovered, setHovered] = useState(false)
+
+    const [earthFollow, setEarthFollow] = useState(false)
 
     const earthRef = useRef();
     const distance = 20;
@@ -37,20 +39,42 @@ function Earth({ displacementScale, triangles }) {
         earthPositionRef.current = earthRef.current.position;
     }, [])
 
-    useFrame(({ clock }) => {
-        updateEarthPosition(clock)
-    })
-
     useEffect(() => {
         document.body.style.cursor = hovered ? 'pointer' : 'auto'
     }, [hovered])
 
+    const toggleEarthFollow = () => {
+        setEarthFollow((prevEarthFollow) => !prevEarthFollow)
+    }
+
+    useFrame(({ clock, camera }) => {
+        updateEarthPosition(clock)
+        const earthPositionRef = earthRef.current.position;
+        const cameraTargetPosition = new THREE.Vector3(
+            earthPositionRef.x + 10,
+            earthPositionRef.y + 2,
+            earthPositionRef.z + 5
+        )
+
+        if (earthFollow) {
+            camera.lookAt(earthPositionRef)
+            camera.position.copy(cameraTargetPosition)
+        } else {
+            const originalCameraPosition = new THREE.Vector3(16.14,8.32, 20)
+            const originalCameraTarget = new THREE.Vector3(0,0,0)
+            camera.lookAt(originalCameraTarget)
+            camera.position.copy(originalCameraPosition)
+        }
+
+    })
+
     // args values = radius, x, y
     return (
         <group ref={earthRef}>
-            <mesh castShadow receiveShadow 
-            onPointerOut={() => { setHovered(false)}}
-            onPointerOver={() => {setHovered(true)}}>
+            <mesh castShadow receiveShadow
+                onClick={toggleEarthFollow}
+                onPointerOut={() => { setHovered(false) }}
+                onPointerOver={() => { setHovered(true) }}>
                 <sphereGeometry args={[1, triangles, triangles]} />
                 <meshPhongMaterial
                     map={earthTexture}
