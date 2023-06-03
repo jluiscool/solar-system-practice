@@ -7,6 +7,11 @@ import Sun from "../../scenes/SunScene/Sun";
 import Mercury from "../../scenes/MercuryScene/Mercury";
 import Venus from '../../scenes/VenusScene/Venus';
 import Mars from "../../scenes/MarsScene/Mars";
+import Jupiter from "../../scenes/JupiterScene/Jupiter";
+import Saturn from "../../scenes/SaturnScene/Saturn";
+import Uranus from "../../scenes/UranusScene/Uranus";
+import Neptune from "../../scenes/NeptuneScene/Neptune";
+import Pluto from "../../scenes/PlutoScene/Pluto";
 
 function CanvasContainer({ triangles, displacement }) {
 
@@ -34,6 +39,11 @@ function CanvasContainer({ triangles, displacement }) {
             <Venus triangles={triangles}/>
             <Earth displacementScale={displacement} triangles={triangles} />
             <Mars triangles={triangles}/>
+            <Jupiter />
+            <Saturn />
+            <Uranus />
+            <Neptune />
+            <Pluto />
         </>
     )
 }
